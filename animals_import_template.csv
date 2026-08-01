@@ -1,0 +1,48 @@
+# 动物世界 - 数据导入模板 (CSV格式)
+#
+# 使用说明：
+# 1. 将此文件另存为 "animals_import.csv" 编码格式为 UTF-8
+# 2. 填入你的1000种动物数据
+# 3. 使用 manage_animals.js 导入到程序中
+#
+# 字段说明：
+# id: 动物编号（唯一）
+# name: 中文名称
+# scientificName: 拉丁学名
+# category: 分类（哺乳类/鸟类/鱼类/爬行类/两栖类/甲壳类等）
+# habitat: 栖息地描述
+# diet: 食性
+# size: 体型特征
+# weight: 重量（如："100kg"或"5-10kg"）
+# length: 体长（数字+m单位，如："2m"）
+# status: 保护级别（极危/濒危/易危/近危/无危等）
+# imagePlaceholder: 图片文件名（按此命名，如：panda.jpg）
+# description: 动物简介描述
+# emoji: 动物表情符号（可选）
+
+id,name,scientificName,category,habitat,diet,size,weight,length,status,imagePlaceholder,description,emoji
+1,大熊猫,Ailuropoda melanoleuca,哺乳类,"中国四川、陕西、甘肃的山区竹林","主要以竹子为食（99%），偶尔吃小型动物和鸟类",体长60-85cm,100kg,0.7m,易危（VU）、panda.jpg,中国的国宝，黑白相间，以竹子为主食，憨态可掬。世界自然基金会的标志性动物，也是濒危物种保护的象征。,🐼
+2,金丝猴,Rhinopithecus roxellanae,哺乳类,"中国西南和中部的高山森林（海拔2200-3400米）","水果、树叶、种子、树皮和昆虫",体长约75cm,10-15kg,0.75m,濒危（EN）、goldenmonkey.jpg,毛发金黄如丝，面部蓝色，是中国特有的珍稀灵长类动物，生活在高海拔地区。,🐒
+3,藏羚羊,Pantholops hodgsonii,哺乳类,"青藏高原（海拔4000-5000米）","各种草本植物、莎草和苔藓",体长120-140cm，肩高75-90cm,50kg,1.3m,近危（NT）、tibetan_antelope.jpg,被称为"高原精灵"，善于奔跑，每小时可达80公里，雌性有角但较短。,🦌
+4,朱鹮,Nipponia nippon,鸟类,"湿地、稻田、树林","小鱼、蛙、昆虫和水生动物",体长约78cm，翼展约1.3m,1.7-2kg,0.78m,濒危（EN）、nisin.jpg,粉红色的鹮鸟，头顶红色冠羽，被称为东方宝石。曾一度野外灭绝，现通过保护有所恢复。,🕊️
+5,白鱀豚,Lipotes vexillifer,水生哺乳类,"长江中下游大型深水区","主要以鱼类为食",体长约2m,150kg,2m,可能灭绝（CR）、baiji_dolphin.jpg,长江特有鲸类，被誉为长江女神，是研究淡水豚类的珍贵标本。,🐬
+6,东北虎,Panthera tigris altaica,哺乳类,"俄罗斯远东和中国东北的针阔混交林","鹿、野猪等大型哺乳动物",体长2-3.3m，体重180-306kg,230kg,2.6m,濒危（EN）、siberian_tiger.jpg,现存最大的猫科动物，威严雄伟，是顶级掠食者。目前野生种群不足1000只。,🐅
+7,丹顶鹤,Grus japonensis,鸟类,"湿地、沼泽","鱼类、昆虫、小型两栖动物和植物",体高120-156cm，翼展1.8-2m,7-10kg,1.4m,濒危（EN）、red_crowned_crane.jpg,头顶红色肉冠，体态优美，象征长寿和幸福，深受中国文化喜爱。,🦩
+8,华南虎,Panthera tigris amoyensis,哺乳类,"中国南部森林","鹿、野猪、牛等",体长2-2.5m，体重100-155kg,130kg,2.2m,极危（CR）- 野外已灭绝，south_china_tiger.jpg,中国特有的虎亚种，野外观测已多年未确认，是极度濒危的动物代表。,🐯
+9,麋鹿,Elaphurus davidianus,哺乳类,"湿地、沼泽、草地","水生植物、草和树叶",体长180-210cm，肩高110-120cm,160-200kg,1.9m,无危（LC）、pere_david_deer.jpg,又名四不像，头脸像马、角像鹿、颈像骆驼、蹄像牛，是中国特有的古老鹿种。,🦄
+10,扬子鳄,Alligator sinensis,爬行类,"长江流域的湖泊、河流","鱼、虾、螺类和小型动物",体长约1.5m,15-45kg,1.5m,极危（CR）、chinese_crocodile.jpg,中国特有的鳄鱼种类，体型较小，是世界最濒危的鳄鱼之一。,🐊
+11,中华鲟,Acipenser sinensis,鱼类,"长江中下游及东海、黄海海域","小型鱼类、甲壳类和软体动物",体长1-3m，重300-500kg,300kg,2m,极危（CR）、chinese_sturgeon.jpg,被称为"活化石"的古生物，是长江中的珍稀鱼类，具有极高的科研价值。,🐟
+12,大鲵,Andrias davidianus,两栖类,"山区清澈溪流","鱼类、蛙类、甲壳类",体长1米左右,20-30kg,1m,极危（CR）、giant_salmander.jpg,世界上最大的两栖动物，叫声似婴儿啼哭，俗称娃娃鱼，是古老的活化石物种。,🐸
+13,穿山甲,Manis pentadactyla,哺乳类,"热带、亚热带森林","蚂蚁和白蚁",体长40-90cm,2-7kg,0.6m,极危（CR）、pangolin.jpg,世界上唯一的鳞甲类哺乳动物，全身覆盖鳞片，以蚂蚁和白蚁为食，是高效的天然杀虫剂。,🦔
+14,雪豹,Panthera uncia,哺乳类,"中亚高山地区","岩羊、北山羊、鼠兔等",体长1m，尾长0.9m,32-48kg,1.8m,易危（VU）、snow_leopard.jpg,被称为"雪山之王"，生活在高海拔地区，毛色灰白带黑斑，是高山生态系统的旗舰物种。,🐆
+15,黑颈鹤,Grus nigricollis,鸟类,"青藏高原湿地","植物根茎、昆虫和小鱼",体高110-120cm,5-6kg,1.1m,近危（NT）、black_necked_crane.jpg,世界上唯一生长和繁殖在高原的鹤类，头颈部黑色，尾羽黑色，是青藏高原的标志性鸟类。,🦢
+16,绿孔雀,Pavo muticus,鸟类,"热带、亚热带丛林","植物果实、种子、昆虫",体长1.2-2.2m（含尾羽）,3-6kg,1.5m,濒危（EN）、green_peacock.jpg,中国境内唯一原产的孔雀，雄鸟尾羽华丽开屏时美丽壮观，是吉祥幸福的象征。,🦚
+17,中华鳖,Pelodiscus sinensis,爬行类,"江河湖沼","小鱼、虾、螺类、植物",壳长15-45cm,1-5kg,0.4m,无危（LC）、chinese_softshell_turtle.jpg,又称甲鱼、团鱼，背部有软质甲壳，是中国传统的滋补食材，具有较高的经济价值。,🐢
+18,扬子蝰,Gloydius blomhoffii ussuriensis,爬行类,"长江流域山地","小型哺乳动物、鸟类、蛙类",体长60-90cm,150-300g,0.75m,无危（LC）、yamashiro_viper.jpg,中国特有的毒蛇，背部有菱形斑纹，分布于华东、华中地区，具有重要的生态地位。,🐍
+19,中国林蛙,Rana temporaria chensinensis,两栖类,"山林溪流附近","昆虫、蚯蚓等",体长5-8cm,20-30g,0.07m,无危（LC）、chinese_forest_frog.jpg,又称哈士蟆，是中国重要的经济蛙类，雌性体内含有珍贵的哈士蟆油。,🐸
+20,中华绒螯蟹,Eriocheir sinensis,甲壳类,"江河湖沼","小鱼、虾、螺、水草",甲宽8-9cm,150-250g,0.1m,无危（LC）、mitten_crab.jpg,即大闸蟹，是中国著名的淡水蟹类，肉质鲜美，是秋季时令美食佳品。,🦀
+21,华南穿山甲,Manis javanica,哺乳类,"东南亚热带雨林","蚂蚁和白蚁",体长50-75cm,2-5kg,0.7m,极危（CR）、south_asian_pangolin.jpg,主要分布于东南亚各国，是受国际贸易保护的重点物种。,🦔
+22,印度眼镜蛇,Naja naja,爬行类,"南亚次大陆的小型动物、鸟类、蛙类",体长1-2m,0.5-1.5kg,1.5m,无危（LC）、indian_cobra.jpg,因颈部膨大形成的"眼镜"图案而得名，毒性强烈。,🐍
+23,亚洲象,Elephas maximus,哺乳类,"东南亚和南亚的热带丛林、草原","草、树叶、果皮",体长5-6m，肩高2-3.5m,4000-5000kg,5.5m,濒危（EN）、asian_elephant.jpg,现存体型最大的陆生动物，智力极高，具有复杂的社会结构和情感。,🐘
+24,褐马羚,Capra falconeri,哺乳类,"喜马拉雅山脉","高山草甸植被",体长150cm，肩高90kg,150kg,1.8m,近危（NT）、markhor.jpg,以其螺旋状的大角而闻名，是巴基斯坦的国兽。,🐐
+25,中华白海豚,Sousa chinensis,水生哺乳类,"中国沿海水域","鱼类、鱿鱼",体长2-2.5m,150-250kg,2.25m,易危（VU）、chinse_white_dolphin.jpg,被称为"海上大熊猫"，体色随年龄变化，粉红色最为著名。,🐬

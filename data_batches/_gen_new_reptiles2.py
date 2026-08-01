@@ -1,0 +1,552 @@
+# -*- coding: utf-8 -*-
+"""Generate new_reptiles2.json - 30 new reptile species (batch 2)."""
+import json, os
+
+DATA = [
+    {
+        "name": "剃刀蛋龟",
+        "englishName": "Razor-backed Musk Turtle",
+        "scientificName": "Sternotherus carinatus",
+        "category": "爬行类",
+        "habitat": "北美东南部的溪流、河流与沼泽",
+        "diet": "昆虫、螺类、小鱼与水草(杂食)",
+        "size": "背甲长10-15厘米",
+        "weight": "0.2-0.4千克",
+        "length": 0.13,
+        "status": "无危(LC)",
+        "emoji": "🐢",
+        "description": "背甲中央高高隆起呈三角形棱脊,形似剃刀刀锋而得名,体型虽小却凶猛好斗,栖息于北美东南部溪流,杂食性,近年成为流行宠物龟。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Razor-backed Musk Turtle (Sternotherus carinatus) on a clear stream bed, sharply keeled triangular shell, sunbeams through shallow water, National Geographic style"
+    },
+    {
+        "name": "印度棱背龟",
+        "englishName": "Indian Roofed Turtle",
+        "scientificName": "Pangshura tecta",
+        "category": "爬行类",
+        "habitat": "南亚的大河、湖泊与水库",
+        "diet": "水生植物与水草(植食为主)",
+        "size": "背甲长20-25厘米",
+        "weight": "1-1.5千克",
+        "length": 0.23,
+        "status": "无危(LC)",
+        "emoji": "🐢",
+        "description": "背甲中央有显著棱脊隆起,栖息于南亚大河与湖泊,以水生植物为食,常在浅滩集体晒太阳,性格相对温和,是南亚常见龟类。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Indian Roofed Turtle (Pangshura tecta) basking on a sandy riverbank in South Asia, prominent central keel on the carapace, National Geographic style"
+    },
+    {
+        "name": "刺鳖",
+        "englishName": "Spiny Softshell Turtle",
+        "scientificName": "Apalone spinifera",
+        "category": "爬行类",
+        "habitat": "北美的大型河流、湖泊与池塘",
+        "diet": "鱼类、甲壳类与水生昆虫",
+        "size": "背甲长20-40厘米(雌性更大)",
+        "weight": "1-5千克",
+        "length": 0.35,
+        "status": "无危(LC)",
+        "emoji": "🐢",
+        "description": "北美分布广泛的软壳鳖,背甲前缘布满细小刺状突起,吻部细长呈管状,喜潜藏于泥沙中伏击猎物,性情凶猛,以鱼虾为食。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Spiny Softshell Turtle (Apalone spinifera) half-buried in river sand, flattened leathery shell with spiny front edge, long tubular snout, National Geographic style"
+    },
+    {
+        "name": "斑鳖",
+        "englishName": "Yangtze Giant Softshell Turtle",
+        "scientificName": "Rafetus swinhoei",
+        "category": "爬行类",
+        "habitat": "长江中下游及大型湖泊",
+        "diet": "鱼类、虾蟹与软体动物",
+        "size": "背甲长达100厘米以上",
+        "weight": "100-150千克",
+        "length": 1.0,
+        "status": "极危(CR)",
+        "emoji": "🐢",
+        "description": "全球最濒危的龟鳖类之一,背甲散布黄色斑点,曾栖息于长江中下游与云南水域,现存个体寥寥无几,被誉为水中大熊猫。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Yangtze Giant Softshell Turtle (Rafetus swinhoei) surfacing in a vast riverine lake, enormous flat spotted shell, misty dawn light, National Geographic style"
+    },
+    {
+        "name": "欧泽龟",
+        "englishName": "European Pond Turtle",
+        "scientificName": "Emys orbicularis",
+        "category": "爬行类",
+        "habitat": "欧洲的静水池塘、湖泊与沼泽",
+        "diet": "鱼虾、昆虫与水生植物(杂食)",
+        "size": "背甲长15-20厘米",
+        "weight": "0.5-1千克",
+        "length": 0.18,
+        "status": "近危(NT)",
+        "emoji": "🐢",
+        "description": "欧洲分布最广的淡水龟,背甲黑色带黄色放射纹,腹甲可活动,喜栖息于静水池塘与沼泽,杂食性,是欧洲古老的原生龟类。",
+        "imagePrompt": "A photorealistic wildlife photograph of a European Pond Turtle (Emys orbicularis) basking on a log in a quiet pond, dark shell with yellow radiating streaks, National Geographic style"
+    },
+    {
+        "name": "星点龟",
+        "englishName": "Spotted Turtle",
+        "scientificName": "Clemmys guttata",
+        "category": "爬行类",
+        "habitat": "北美的浅水沼泽与林间湿地",
+        "diet": "水生昆虫、蝌蚪与水草(杂食)",
+        "size": "背甲长9-13厘米",
+        "weight": "0.2-0.5千克",
+        "length": 0.11,
+        "status": "易危(VU)",
+        "emoji": "🐢",
+        "description": "北美小型珍稀龟类,黑色背甲上散布黄色圆形斑点,如同夜空繁星,栖息于浅水沼泽,杂食性,因栖息地丧失数量锐减。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Spotted Turtle (Clemmys guttata) on moss beside a woodland marsh, jet-black shell dotted with yellow spots, National Geographic style"
+    },
+    {
+        "name": "东部箱龟",
+        "englishName": "Eastern Box Turtle",
+        "scientificName": "Terrapene carolina",
+        "category": "爬行类",
+        "habitat": "北美的林地、草地与湿地边缘",
+        "diet": "昆虫、蚯蚓、浆果与蘑菇(杂食)",
+        "size": "背甲长10-20厘米",
+        "weight": "0.5-1千克",
+        "length": 0.16,
+        "status": "易危(VU)",
+        "emoji": "🐢",
+        "description": "北美陆栖龟类,背甲高拱,腹甲有韧带可完全闭壳,黄色斑点与放射纹醒目,寿命可超过五十年,是受人喜爱的森林龟。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Eastern Box Turtle (Terrapene carolina) crossing a forest floor, high domed shell with yellow blotches, fallen leaves around, National Geographic style"
+    },
+    {
+        "name": "平胸龟",
+        "englishName": "Big-headed Turtle",
+        "scientificName": "Platysternon megacephalum",
+        "category": "爬行类",
+        "habitat": "我国南方及东南亚的山间溪流",
+        "diet": "鱼虾、螺类与水生昆虫",
+        "size": "背甲长15-20厘米",
+        "weight": "1-1.5千克",
+        "length": 0.18,
+        "status": "濒危(EN)",
+        "emoji": "🐢",
+        "description": "头大不能缩入壳内,喙似鹰嘴,又称鹰嘴龟,栖息于山溪激流,以鱼虾螺类为食,攀爬力强,是我国珍稀的原生龟类。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Big-headed Turtle (Platysternon megacephalum) perched on a rock in a rushing mountain stream, oversized head and hooked beak, National Geographic style"
+    },
+    {
+        "name": "地龟",
+        "englishName": "Black-breasted Leaf Turtle",
+        "scientificName": "Geoemyda spengleri",
+        "category": "爬行类",
+        "habitat": "我国南部及东南亚的山区溪流与落叶林",
+        "diet": "昆虫、蚯蚓与植物果实(杂食)",
+        "size": "背甲长10-13厘米",
+        "weight": "0.2-0.4千克",
+        "length": 0.12,
+        "status": "濒危(EN)",
+        "emoji": "🐢",
+        "description": "背甲扁平呈枫叶状,边缘锯齿明显,腹甲黑色具黄色斑纹,栖息于山区溪流与落叶林,杂食性,因过度捕捉已列为濒危物种。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Black-breasted Leaf Turtle (Geoemyda spengleri) among leaf litter in a mountain forest, flattened maple-leaf-shaped shell, National Geographic style"
+    },
+    {
+        "name": "拟鳄龟",
+        "englishName": "Common Snapping Turtle",
+        "scientificName": "Chelydra serpentina",
+        "category": "爬行类",
+        "habitat": "北美的河流、湖泊与沼泽",
+        "diet": "鱼类、蛙类、水鸟与小型动物",
+        "size": "背甲长20-47厘米",
+        "weight": "4-16千克",
+        "length": 0.4,
+        "status": "无危(LC)",
+        "emoji": "🐢",
+        "description": "北美常见的大型淡水龟,背甲具三条纵棱,性情凶猛,捕食鱼蛙与小型动物,与鳄龟同科但体型略小,是知名观赏龟类。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Common Snapping Turtle (Chelydra serpentina) on a muddy pond bottom, rugged dark shell and massive jaws, aquatic plants, National Geographic style"
+    },
+    {
+        "name": "沙漠鞭尾蜥",
+        "englishName": "Desert Grassland Whiptail",
+        "scientificName": "Aspidoscelis uniparens",
+        "category": "爬行类",
+        "habitat": "北美荒漠草原与灌丛沙地",
+        "diet": "白蚁、蚂蚁与其他昆虫",
+        "size": "全长15-25厘米",
+        "weight": "30-60克",
+        "length": 0.2,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "栖息于北美荒漠草原,体色灰褐便于伪装,奔跑迅速,以白蚁等昆虫为食,该物种几乎全为雌性,通过孤雌生殖繁衍后代。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Desert Grassland Whiptail (Aspidoscelis uniparens) darting across sandy desert grassland, slender gray-brown body with pale stripes, National Geographic style"
+    },
+    {
+        "name": "岛夜蜥",
+        "englishName": "Island Night Lizard",
+        "scientificName": "Xantusia riversiana",
+        "category": "爬行类",
+        "habitat": "美国加州海峡群岛的岩石海岸与灌木丛",
+        "diet": "昆虫、蜘蛛与植物果实",
+        "size": "全长8-12厘米",
+        "weight": "10-20克",
+        "length": 0.1,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "仅分布于美国加州海峡群岛的珍稀蜥蜴,体型小,眼大适应夜间活动,以昆虫与植物果实为食,胎生繁殖,寿命可超过十年。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Island Night Lizard (Xantusia riversiana) perched on a coastal rock of the Channel Islands, small yellow-speckled body, evening light, National Geographic style"
+    },
+    {
+        "name": "飞蜥",
+        "englishName": "Common Flying Dragon",
+        "scientificName": "Draco volans",
+        "category": "爬行类",
+        "habitat": "东南亚热带雨林的树冠层",
+        "diet": "树栖蚂蚁与白蚁",
+        "size": "全长20-23厘米",
+        "weight": "15-25克",
+        "length": 0.22,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "体侧长有翼状皮膜,能在树间滑翔数米,被称为飞龙,栖息于东南亚热带雨林树冠层,以树栖蚂蚁与白蚁为食,受惊即展膜滑逃。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Common Flying Dragon (Draco volans) gliding between rainforest trees with orange wing membranes spread, National Geographic style"
+    },
+    {
+        "name": "犀牛鬣蜥",
+        "englishName": "Rhinoceros Iguana",
+        "scientificName": "Cyclura cornuta",
+        "category": "爬行类",
+        "habitat": "加勒比海岛礁的岩石旱地",
+        "diet": "植物叶片、花与果实(植食)",
+        "size": "全长100-135厘米",
+        "weight": "4-8千克",
+        "length": 1.2,
+        "status": "易危(VU)",
+        "emoji": "🦎",
+        "description": "鼻端长有三根角状突起形似犀牛,栖息于加勒比海岛礁岩石地带,以植物与果实为食,是世界上体型最大的岩鬣蜥类之一。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Rhinoceros Iguana (Cyclura cornuta) on a rocky Caribbean hillside, three horn-like scales on its snout, gray armored body, National Geographic style"
+    },
+    {
+        "name": "古巴岩鬣蜥",
+        "englishName": "Cuban Rock Iguana",
+        "scientificName": "Cyclura nubila",
+        "category": "爬行类",
+        "habitat": "古巴及周边岛屿的沿海岩壁与灌木林",
+        "diet": "植物叶片、花与果实(植食)",
+        "size": "全长120-150厘米",
+        "weight": "5-9千克",
+        "length": 1.3,
+        "status": "易危(VU)",
+        "emoji": "🦎",
+        "description": "古巴特有的大型鬣蜥,灰褐皮肤粗粝,背脊有锯齿状鳞片,喜栖于沿海岩壁,以植物果实为食,寿命可超过五十年,受法律保护。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Cuban Rock Iguana (Cyclura nubila) perched on a limestone cliff by the sea in Cuba, dark gray body with saw-toothed dorsal crest, National Geographic style"
+    },
+    {
+        "name": "蛇蜥",
+        "englishName": "Slow Worm",
+        "scientificName": "Anguis fragilis",
+        "category": "爬行类",
+        "habitat": "欧洲与西亚的草地、林缘与石缝",
+        "diet": "蚯蚓、蛞蝓与软体动物",
+        "size": "全长40-50厘米",
+        "weight": "20-50克",
+        "length": 0.45,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "外形似蛇却没有四肢,眼睑可眨动、遇险能断尾逃生,实为无腿蜥蜴,常藏身草地石缝,以蚯蚓与蛞蝓为食,性情温顺。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Slow Worm (Anguis fragilis) coiled in green meadow grass, shiny legless bronze body, close-up of its small head, National Geographic style"
+    },
+    {
+        "name": "鳞脚蜥",
+        "englishName": "Burton's Legless Lizard",
+        "scientificName": "Lialis burtonis",
+        "category": "爬行类",
+        "habitat": "澳大利亚中北部的林地与灌丛",
+        "diet": "壁虎、石龙子等小型蜥蜴",
+        "size": "全长50-60厘米",
+        "weight": "30-60克",
+        "length": 0.55,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "澳大利亚特有的无腿蜥蜴,外观酷似蛇,但具有外耳孔与短宽舌头,以壁虎等小型蜥蜴为食,常被误认为蛇,实为鳞脚蜥科成员。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Burton's Legless Lizard (Lialis burtonis) stretched across red Australian soil, snake-like body with wedge-shaped snout, National Geographic style"
+    },
+    {
+        "name": "北草蜥",
+        "englishName": "Northern Grass Lizard",
+        "scientificName": "Takydromus septentrionalis",
+        "category": "爬行类",
+        "habitat": "我国南方的草丛、灌丛与农田边缘",
+        "diet": "昆虫、蜘蛛与其他小型节肢动物",
+        "size": "全长20-28厘米",
+        "weight": "10-20克",
+        "length": 0.24,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "我国常见的小型蜥蜴,体色草绿带浅色纵纹,尾部细长易断,栖息于草丛灌丛,以昆虫为食,受惊时迅速钻入草根逃遁。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Northern Grass Lizard (Takydromus septentrionalis) perched on a grass blade, slender greenish body with pale stripes, long tail, National Geographic style"
+    },
+    {
+        "name": "丽斑麻蜥",
+        "englishName": "Mongolian Racerunner",
+        "scientificName": "Eremias argus",
+        "category": "爬行类",
+        "habitat": "我国北方草原、沙地与丘陵灌丛",
+        "diet": "昆虫、蜘蛛与其他小型节肢动物",
+        "size": "全长15-20厘米",
+        "weight": "10-20克",
+        "length": 0.17,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "我国北方草原常见的小型蜥蜴,背上有成排黑色眼斑状圆纹,行动敏捷,常出没于沙质草地,以昆虫为食,冬季入土冬眠。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Mongolian Racerunner (Eremias argus) on sandy grassland in northern China, rows of dark eye-spots along the back, National Geographic style"
+    },
+    {
+        "name": "中国鳄蜥",
+        "englishName": "Chinese Crocodile Lizard",
+        "scientificName": "Shinisaurus crocodilurus",
+        "category": "爬行类",
+        "habitat": "广西大瑶山等地的山区溪流",
+        "diet": "昆虫、小鱼与蝌蚪",
+        "size": "全长30-45厘米",
+        "weight": "100-200克",
+        "length": 0.4,
+        "status": "濒危(EN)",
+        "emoji": "🦎",
+        "description": "我国特有的活化石级珍稀蜥蜴,外形似鳄,头背鳞片骨化,栖息于广西山区溪流,以昆虫为食,数量稀少,已列为国家一级保护动物。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Chinese Crocodile Lizard (Shinisaurus crocodilurus) basking on a branch over a mountain stream in Guangxi, armored crocodile-like head and body, National Geographic style"
+    },
+    {
+        "name": "长鬣蜥",
+        "englishName": "Chinese Water Dragon",
+        "scientificName": "Physignathus cocincinus",
+        "category": "爬行类",
+        "habitat": "东南亚及我国南部的溪流沿岸树林",
+        "diet": "昆虫、小鱼与小型动物(杂食)",
+        "size": "全长80-100厘米",
+        "weight": "400-800克",
+        "length": 0.9,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "俗称中国水龙,体侧有绿色横斑,背脊鬣鳞明显,喜栖息于溪流旁的树枝,受惊跃入水中,以昆虫与小型动物为食,是常见宠物。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Chinese Water Dragon (Physignathus cocincinus) perched on a branch above a tropical stream, vivid green body with dark bands, National Geographic style"
+    },
+    {
+        "name": "铜蜓蜥",
+        "englishName": "Indian Forest Skink",
+        "scientificName": "Sphenomorphus indicus",
+        "category": "爬行类",
+        "habitat": "我国南方及东南亚的林缘、草丛与石堆",
+        "diet": "昆虫、蜘蛛与其他小型无脊椎动物",
+        "size": "全长18-25厘米",
+        "weight": "20-40克",
+        "length": 0.22,
+        "status": "无危(LC)",
+        "emoji": "🦎",
+        "description": "我国南方常见的石龙子,体背铜褐色带黑色斑点,腹面橙红,栖息于林缘草丛与石堆,以昆虫为食,受惊会断尾迷惑天敌。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Indian Forest Skink (Sphenomorphus indicus) among forest leaf litter, bronze-brown body with black spots and orange belly, National Geographic style"
+    },
+    {
+        "name": "赤链蛇",
+        "englishName": "Red-banded Snake",
+        "scientificName": "Lycodon rufozonatus",
+        "category": "爬行类",
+        "habitat": "田野、村落、林缘与沼泽地带",
+        "diet": "蛙类、鱼类、鼠类与蜥蜴",
+        "size": "全长100-150厘米",
+        "weight": "200-500克",
+        "length": 1.3,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "体背黑褐色带红色横纹,鳞间呈红色而得名,是无毒蛇,常出没于田野村落,夜间活动,以蛙类、鱼类与鼠类为食,性情稍烈。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Red-banded Snake (Lycodon rufozonatus) coiled among field grasses at dusk, dark body with bright red crossbands, National Geographic style"
+    },
+    {
+        "name": "钝尾两头蛇",
+        "englishName": "Northern Two-headed Snake",
+        "scientificName": "Calamaria septentrionalis",
+        "category": "爬行类",
+        "habitat": "我国南方及东南亚的山地林区落叶层",
+        "diet": "蚯蚓、昆虫幼虫与小型无脊椎动物",
+        "size": "全长25-40厘米",
+        "weight": "20-50克",
+        "length": 0.33,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "小型穴居无毒蛇,尾短钝似头部,遇敌时常翘尾伪装成两头蛇,栖息于林地落叶层,以小蚯蚓与昆虫幼虫为食,昼伏夜出。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Northern Two-headed Snake (Calamaria septentrionalis) burrowing through forest leaf litter in southern China, small dark body with a blunt tail tip, National Geographic style"
+    },
+    {
+        "name": "过树蛇",
+        "englishName": "Painted Bronzeback",
+        "scientificName": "Dendrelaphis pictus",
+        "category": "爬行类",
+        "habitat": "东南亚及我国南部的热带雨林与竹林",
+        "diet": "蜥蜴、蛙类与小型啮齿动物",
+        "size": "全长100-130厘米",
+        "weight": "100-300克",
+        "length": 1.2,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "树栖性无毒蛇,体形细长,鳞片带彩虹光泽,常在树枝间灵活穿行,以蜥蜴与蛙类为食,分布于东南亚及我国南部,受惊快速逃窜。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Painted Bronzeback (Dendrelaphis pictus) weaving through rainforest branches, slender body with rainbow iridescent scales, National Geographic style"
+    },
+    {
+        "name": "白条锦蛇",
+        "englishName": "Dione Rat Snake",
+        "scientificName": "Elaphe dione",
+        "category": "爬行类",
+        "habitat": "我国北方草原、农田与丘陵灌丛",
+        "diet": "鼠类、小鸟与蜥蜴",
+        "size": "全长90-120厘米",
+        "weight": "150-350克",
+        "length": 1.0,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "背脊有一条白色纵纹贯穿全身而得名,是我国北方常见的无毒蛇,栖息于草原田野,以鼠类为食,在控制鼠害方面发挥重要作用。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Dione Rat Snake (Elaphe dione) in northern Chinese grassland, gray-brown body with a white stripe along the spine, National Geographic style"
+    },
+    {
+        "name": "白环蛇",
+        "englishName": "Common Wolf Snake",
+        "scientificName": "Lycodon aulicus",
+        "category": "爬行类",
+        "habitat": "南亚与东南亚的树林、田园与居民区",
+        "diet": "壁虎、小型蜥蜴与啮齿动物",
+        "size": "全长50-90厘米",
+        "weight": "100-250克",
+        "length": 0.75,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "体表具白色环状斑纹而得名,无毒,夜行性,常捕食壁虎与小型蜥蜴,广泛分布于南亚与东南亚,也常出现在居民区附近。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Common Wolf Snake (Lycodon aulicus) hunting at night near a village wall, dark body with white crossbands, moonlit scene, National Geographic style"
+    },
+    {
+        "name": "渔游蛇",
+        "englishName": "Checkered Keelback",
+        "scientificName": "Fowlea piscator",
+        "category": "爬行类",
+        "habitat": "东南亚及我国南部的稻田、池塘与河流",
+        "diet": "蛙类、鱼类与水生无脊椎动物",
+        "size": "全长80-120厘米",
+        "weight": "150-400克",
+        "length": 1.0,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "常见于稻田与池塘的无毒蛇,体背橄榄褐色带黑色棋盘状斑纹,喜在水中活动,以蛙类与鱼类为食,受惊时潜入水底躲避。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Checkered Keelback (Fowlea piscator) swimming in a rice paddy, olive body with black checkered markings, water ripples, National Geographic style"
+    },
+    {
+        "name": "黑头剑蛇",
+        "englishName": "Chinese Black-headed Snake",
+        "scientificName": "Sibynophis chinensis",
+        "category": "爬行类",
+        "habitat": "我国南方及东南亚的山地林区",
+        "diet": "蚯蚓、昆虫与其他无脊椎动物",
+        "size": "全长40-60厘米",
+        "weight": "50-100克",
+        "length": 0.5,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "头部黑色如戴头盔,体背灰褐,是我国南方林区的无毒蛇,白天活动,以蚯蚓与昆虫为食,性情温顺,不主动攻击人。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Chinese Black-headed Snake (Sibynophis chinensis) resting on forest floor in southern China, glossy black head and gray-brown body, National Geographic style"
+    },
+    {
+        "name": "瘰鳞蛇",
+        "englishName": "Marine File Snake",
+        "scientificName": "Acrochordus granulatus",
+        "category": "爬行类",
+        "habitat": "东南亚及澳洲北部的近海与河口",
+        "diet": "鱼类与水生无脊椎动物",
+        "size": "全长100-150厘米",
+        "weight": "300-800克",
+        "length": 1.3,
+        "status": "无危(LC)",
+        "emoji": "🐍",
+        "description": "全身皮肤松弛呈皱褶状,鳞片细小如锉,尾部侧扁,终生生活在近海与河口,以鱼类为食,是无毒的水栖蛇类,形态奇特。",
+        "imagePrompt": "A photorealistic wildlife photograph of a Marine File Snake (Acrochordus granulatus) gliding through shallow coastal water, loose wrinkled baggy skin, flattened paddle tail, National Geographic style"
+    },
+]
+
+# ---- validation ----
+errors = []
+
+if len(DATA) != 30:
+    errors.append("COUNT != 30: %d" % len(DATA))
+
+# existing reptiles: from animals_data.json + new_reptiles.json + context forbidden list
+BASE = "C:/Users/Administrator/Desktop/animal-world-mini-program"
+existing_sci = set()
+existing_name = set()
+for fn in ["animals_data.json", "data_batches/new_reptiles.json"]:
+    p = os.path.join(BASE, fn)
+    if os.path.exists(p):
+        raw = json.load(open(p, encoding="utf-8"))
+        arr = raw["animals"] if isinstance(raw, dict) and "animals" in raw else raw
+        for x in arr:
+            if x.get("category") == "爬行类":
+                existing_name.add(x.get("name"))
+                if x.get("scientificName"):
+                    existing_sci.add(x["scientificName"].strip().lower())
+
+context_names = "扬子鳄 湾鳄 棱皮龟 绿海龟 中华草龟 加拉帕戈斯象龟 科摩多巨蜥 鬃狮蜥 绿鬣蜥 豹纹守宫 眼镜王蛇 缅甸蟒 绿树蟒 响尾蛇 竹叶青 印度星龟 鳄龟 巴西龟 七彩变色龙 睫角守宫 泰加蜥 网纹蟒 蝮蛇 黄缘闭壳龟 盲蛇 红腿陆龟 中华鳖 蓝尾石龙子 红尾蚺 猪鼻蛇 玉米蛇 王蛇 奶蛇 水蛇 草蛇 锦蛇 鼠蛇 海鬣蜥 沙漠鬣蜥 双领蜥 脆蛇蜥 帝王环尾蜥 埃及刺尾蜥 绿水蚺 黄水蚺 喙头蜥 尼罗鳄 美洲短吻鳄 玳瑁 泽巨蜥 高冠变色龙 大壁虎 眼镜蛇 银环蛇 球蟒 尖吻蝮 青环海蛇 加州王蛇 希拉毒蜥 安乐蜥 蓝舌石龙子 缅甸陆龟 猪鼻龟 美洲鳄蜥 双冠蜥 赫尔曼陆龟 苏卡达陆龟 豹纹陆龟 黄喉拟水龟 中华花龟 金钱龟 麝香龟 地图龟 锦龟 山瑞鳖 珍珠鳖 王锦蛇 滑鼠蛇 北方水蛇 钩鼻蛇 非洲食卵蛇 普通束带蛇 东部森王蛇 犀牛蛇 翡翠树蚺 中国石龙子 捷蜥蜴 胎生蜥蜴 犰狳蜥 黑刺尾鬣蜥 伞蜥 变色树蜥 鼹蚓蜥 楔齿蜥".split()
+
+seen_sci = set()
+genus_count = {}
+for d in DATA:
+    sci = d["scientificName"].strip()
+    sci_l = sci.lower()
+    if sci_l in seen_sci:
+        errors.append("dup sci in batch: " + sci)
+    seen_sci.add(sci_l)
+    if sci_l in existing_sci:
+        errors.append("EXISTS sci: " + sci)
+    if d["name"] in existing_name or d["name"] in context_names:
+        errors.append("EXISTS name: " + d["name"])
+    L = len(d["description"])
+    if not (40 <= L <= 80):
+        errors.append("desc len %d for %s" % (L, d["name"]))
+    if not d["imagePrompt"].startswith("A photorealistic wildlife photograph of a "):
+        errors.append("prompt prefix: " + d["name"])
+    if not d["imagePrompt"].endswith("National Geographic style"):
+        errors.append("prompt suffix: " + d["name"])
+    if d["category"] != "爬行类":
+        errors.append("category: " + d["name"])
+    genus = sci.split()[0]
+    genus_count[genus] = genus_count.get(genus, 0) + 1
+    if genus_count[genus] > 2:
+        errors.append("genus >2 in batch: " + genus)
+
+# genus check vs existing
+existing_genus = {}
+for fn in ["animals_data.json", "data_batches/new_reptiles.json"]:
+    p = os.path.join(BASE, fn)
+    if os.path.exists(p):
+        raw = json.load(open(p, encoding="utf-8"))
+        arr = raw["animals"] if isinstance(raw, dict) and "animals" in raw else raw
+        for x in arr:
+            if x.get("category") == "爬行类" and x.get("scientificName"):
+                g = x["scientificName"].strip().split()[0]
+                existing_genus[g] = existing_genus.get(g, 0) + 1
+# context-listed genera to add (single representative sci names for genus occupancy)
+ctx_genus_map = {
+    "巴西龟": "Trachemys scripta", "七彩变色龙": "Furcifer pardalis", "睫角守宫": "Correlophus ciliatus",
+    "泰加蜥": "Tupinambis teguixin", "蝮蛇": "Gloydius brevicaudus", "黄缘闭壳龟": "Cuora flavomarginata",
+    "盲蛇": "Indotyphlops braminus", "水蛇": "Enhydris chinensis", "锦蛇": "Elaphe carinata",
+    "鼠蛇": "Ptyas korros", "双领蜥": "Cnemidophorus lemniscatus", "喙头蜥": "Sphenodon punctatus",
+    "红尾蚺": "Boa constrictor", "王蛇": "Lampropeltis getula", "奶蛇": "Lampropeltis triangulum",
+    "玉米蛇": "Pantherophis guttatus", "猪鼻蛇": "Heterodon nasicus", "草蛇": "Natrix natrix",
+}
+for nm, sci in ctx_genus_map.items():
+    if nm not in existing_name and sci.strip().lower() not in existing_sci:
+        existing_genus[sci.split()[0]] = existing_genus.get(sci.split()[0], 0) + 1
+
+for d in DATA:
+    g = d["scientificName"].strip().split()[0]
+    total = existing_genus.get(g, 0) + genus_count[g]
+    if total > 2:
+        errors.append("GENUS OVER LIMIT(>2 incl existing): %s -> %d" % (g, total))
+
+if errors:
+    print("VALIDATION FAILED:")
+    for e in errors:
+        print(" -", e)
+    raise SystemExit(1)
+
+out_path = os.path.join(BASE, "data_batches", "new_reptiles2.json")
+with open(out_path, "w", encoding="utf-8") as f:
+    json.dump(DATA, f, ensure_ascii=False, indent=1)
+
+print("OK: %d entries -> %s" % (len(DATA), out_path))
+print("size bytes:", os.path.getsize(out_path))
+print("turtles:", sum(1 for d in DATA if d["emoji"] == "🐢"),
+      "| lizards:", sum(1 for d in DATA if d["emoji"] == "🦎"),
+      "| snakes:", sum(1 for d in DATA if d["emoji"] == "🐍"))
+print("desc length range:", min(len(d["description"]) for d in DATA), "-", max(len(d["description"]) for d in DATA))
