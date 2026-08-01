@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦁 动物世界 1000种 - 扫码访问汇总</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family: 'PingFang SC','Microsoft YaHei',sans-serif;
+    background: linear-gradient(135deg,#0f0c29 0%,#302b63 50%,#24243e 100%);
+    min-height: 100vh;
+    color: #fff;
+    padding: 30px 20px 40px;
+}
+.container { max-width: 960px; margin: 0 auto; }
+.header { text-align:center; margin-bottom: 32px; }
+.header h1 {
+    font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+    background: linear-gradient(90deg,#f7971e,#ffd200,#f7971e);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+}
+.header .sub { color: rgba(255,255,255,0.75); font-size: 1.05rem; margin-bottom: 12px; }
+.badge {
+    display:inline-block;
+    background: rgba(255,215,0,0.15);
+    border:1px solid rgba(255,215,0,0.4);
+    color:#ffd200;
+    padding: 5px 18px;
+    border-radius: 24px;
+    font-size: 0.9rem;
+}
+.qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+}
+.qr-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 24px 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: all .3s ease;
+}
+.qr-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,215,0,0.5);
+    box-shadow: 0 15px 40px rgba(255,215,0,0.15);
+    background: rgba(255,255,255,0.1);
+}
+.platform { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+.tag {
+    display:inline-block; padding: 3px 14px; border-radius: 14px;
+    font-size: 0.75rem; margin-bottom: 10px;
+}
+.tag-green { background:#22c55e22; color:#4ade80; border:1px solid #4ade8044; }
+.tag-blue  { background:#3b82f622; color:#60a5fa; border:1px solid #60a5fa44; }
+.tag-orange{ background:#f9731622; color:#fb923c; border:1px solid #fb923c44; }
+.tag-purple{ background:#a855f722; color:#c084fc; border:1px solid #c084fc44; }
+.qr-card img {
+    width: 100%; max-width: 230px;
+    border-radius: 12px; background: #fff; padding: 10px;
+}
+.url-box {
+    margin-top: 14px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.7);
+    word-break: break-all;
+    line-height: 1.5;
+    position: relative;
+}
+.copy-btn {
+    margin-top: 10px;
+    background: linear-gradient(135deg,#f7971e,#ffd200);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 24px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+}
+.copy-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(255,210,0,0.3); }
+.copy-btn.copied { background: #22c55e; color: #fff; }
+
+.tip {
+    text-align:center; margin-top: 28px;
+    color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 2;
+}
+.tip .hl { color:#ffd200; font-weight:600; }
+.footer {
+    text-align:center; margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.35); font-size: 0.75rem;
+}
+.toast {
+    position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: rgba(34,197,94,0.95); color:#fff;
+    padding: 12px 28px; border-radius: 30px;
+    font-size: 0.95rem; opacity: 0;
+    transition: all .4s ease; pointer-events: none; z-index: 999;
+}
+.toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🦁 动物世界 · 1000种实景百科</h1>
+        <div class="sub">8大分类 · 1000种动物 · AI真实风格配图 · 全网多通道加速</div>
+        <span class="badge">📱 微信扫一扫 · 四通道任选</span>
+    </div>
+
+    <div class="qr-grid" id="qrGrid"></div>
+
+    <div class="tip">
+        <div>👆 <span class="hl">长按二维码</span> → 识别图中二维码 / 保存图片</div>
+        <div>🌐 国内微信推荐 <span class="hl">jsDelivr / esm.sh</span> 通道 · GitHub/Cloudflare 视网络环境</div>
+        <div>💡 点击 <span class="hl">复制链接</span> 可分享给朋友</div>
+    </div>
+
+    <div class="footer">🦁 动物世界 Mini百科 · 1000种动物 · 由 Agnes AI 生成配图 · 2026</div>
+</div>
+<div class="toast" id="toast">✅ 链接已复制</div>
+
+<script>
+const QR = [
+    { icon:'🐙', name:'GitHub Pages', tag:'主站', tagClass:'tag-green',
+      url:'https://toobey521.github.io/animal-world-mini-program/',
+      img:'qr_codes/github.png' },
+    { icon:'☁️', name:'Cloudflare Pages', tag:'全球CDN', tagClass:'tag-blue',
+      url:'https://animal-world-mini-program.pages.dev/',
+      img:'qr_codes/cloudflare.png' },
+    { icon:'🚀', name:'jsDelivr CDN', tag:'国内最快·推荐', tagClass:'tag-orange',
+      url:'https://cdn.jsdelivr.net/gh/toobey521/animal-world-mini-program@main/index.html',
+      img:'qr_codes/jsdelivr.png' },
+    { icon:'📦', name:'esm.sh CDN', tag:'ESM加速', tagClass:'tag-purple',
+      url:'https://esm.sh/gh/toobey521/animal-world-mini-program@main/index.html',
+      img:'qr_codes/esm.png' },
+];
+
+const grid = document.getElementById('qrGrid');
+const toast = document.getElementById('toast');
+let toastTimer;
+
+function showToast() {
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+QR.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'qr-card';
+    card.innerHTML = `
+        <div class="platform">${q.icon} ${q.name}</div>
+        <div><span class="tag ${q.tagClass}">${q.tag}</span></div>
+        <img src="${q.img}" alt="${q.name} 二维码" onclick="window.open('${q.url}','_blank')">
+        <div class="url-box">${q.url}</div>
+        <button class="copy-btn" data-url="${q.url}">📋 复制链接</button>
+    `;
+    grid.appendChild(card);
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(btn.dataset.url).then(() => {
+            btn.textContent = '✅ 已复制';
+            btn.classList.add('copied');
+            showToast();
+            setTimeout(() => {
+                btn.textContent = '📋 复制链接';
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    });
+});
+</script>
+</body>
+</html>
