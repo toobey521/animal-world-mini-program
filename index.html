@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦁 动物世界 - Mini百科 (1000种)</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🦁 动物世界 🐯</h1>
+            <p class="subtitle">探索神奇的动物王国 · 1000种动物实景百科</p>
+        </header>
+
+        <div class="controls">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索动物名称、学名或英文名...">
+            <select id="categoryFilter" class="category-filter">
+                <option value="">全部分类</option>
+            </select>
+        </div>
+
+        <div class="filters" id="categoryFilters"></div>
+
+        <div class="animals-grid" id="animalsGrid"></div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalAnimals">0</div>
+                <div class="stat-label">收录物种</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="categoriesCount">0</div>
+                <div class="stat-label">分类数量</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="favoritesCount">0</div>
+                <div class="stat-label">我的收藏</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="avgSize">-</div>
+                <div class="stat-label">平均体长(m)</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="animals_data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
